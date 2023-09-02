@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+ {{ form_start(form) }}
+ <label>Имя:</label>
+ {{ form_widget(form.name) }}
+ <label>Email:</label>
+ {{ form_widget(form.email) }}
+ <label>Пароль:</label>
+ {{ form_widget(form.pass) }}
+ <button class="btn btn-default" type="submit">Сохранить</button>
+ {{ form_end(form) }}
+{% endblock %}

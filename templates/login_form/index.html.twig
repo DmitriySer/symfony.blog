@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+    {{ form_start(form) }}
+    <label>Email:</label>
+    {{ form_widget(form.email) }}
+    <label>Пароль:</label>
+    {{ form_widget(form.pass) }}
+    <button class="btn btn-default" type="submit">Войти</button>
+    {{ form_end(form) }}
+    {{ test }}
+{% endblock %}
