@@ -38,15 +38,28 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Рейтинг постов</a>
                     </li>
+                    {% set user_session = app.session.get('userName') %}
+                    {% if user_session %}
+                    <li>
+                        <a href="/login">
+                            <button type="button" class="btn btn-secondary">{{ user_session }}</button>
+                        </a>
+                    </li>
+                        <li>
+                            <form method="post">
+                                <button type="submit" name="exit" class="btn btn-secondary">Выйти</button>
+                            </form>
+                        </li>
+                    {% else %}
                     <a href="/registration">
                         <button type="button" class="btn btn-dark">Регистрация</button>
                     </a>
                     <li>
-
-                    <a href="/login">
-                        <button type="button" class="btn btn-secondary">Вход</button>
-                    </a>
+                        <a href="/login">
+                            <button type="button" class="btn btn-secondary">Вход</button>
+                        </a>
                     </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -22,9 +23,8 @@ class LoginFormController extends AbstractController
     }
 
     #[Route('/login', name: 'app_login_form')]
-    public function index(Request $request,UserPasswordHasherInterface $passwordHasher): Response
+    public function index(Request $request,UserPasswordHasherInterface $passwordHasher, SessionInterface $session): Response
     {
-
         $form = $this->createForm(LoginFormType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -39,13 +39,13 @@ class LoginFormController extends AbstractController
             } elseif (!$this->isPasswordValid($passwordHasher, $user, $pass)) {
                 echo 'Неверный пароль';
             } else {
-                echo 'Пароль верный';
+                $session->start();
+                $session->set('userName',$user->getName());
             }
         }
         return $this->render('login_form/index.html.twig', [
             'controller_name' => 'LoginFormController',
             'form' => $form,
-            'test' => $pass,
         ]);
     }
     private function isPasswordValid(UserPasswordHasherInterface $passwordHasher, User $user, string $password): bool
